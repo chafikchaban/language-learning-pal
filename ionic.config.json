@@ -1,0 +1,7 @@
+{
+  "name": "language-learning-pal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
