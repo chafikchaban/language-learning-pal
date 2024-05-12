@@ -1,18 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{language}}{{level}}</ion-title>
+    <ion-title>{{language?.name}} {{level?.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{language}}{{level}}</ion-title>
+      <ion-title size="large">{{language?.name}} {{level?.title}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <div id="container">
     <ion-list>
-      <ion-card *ngFor="let step of steps">
+      <ion-card *ngFor="let step of steps" [routerLink]="'/step/' + language?.code + '/' + level?.id + '/' + step.id">
         <ion-card-header>
           <ion-card-title>{{step.title}}</ion-card-title>
         </ion-card-header>

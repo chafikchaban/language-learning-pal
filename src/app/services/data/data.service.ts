@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Language, LanguagesPayload } from 'src/app/model/language.model';
 import { Level, LevelsPayload } from 'src/app/model/level.model';
+import { Slideshow, SlideshowsPayload } from 'src/app/model/slideshow.model';
 import { Step, StepsPayload } from 'src/app/model/step.model';
 
 // mocked languages API data
 const FAKE_LANG_DATA: LanguagesPayload = {
   languages: [
     {
-      "code": "de",
-      "name": "German"
+      code: "de",
+      name: "German"
     },
     {
-      "code": "en",
-      "name": "English"
+      code: "en",
+      name: "English"
     },
   ],
 }
@@ -21,14 +22,14 @@ const FAKE_LANG_DATA: LanguagesPayload = {
 const FAKE_LEVELS_DATA: LevelsPayload = {
   levels: [
     {
-      "id": 0,
-      "languageCode": "en",
-      "title": "A0"
+      id: 0,
+      languageCode: "en",
+      title: "A0"
     },
     {
-      "id": 1,
-      "languageCode": "en",
-      "title": "A1"
+      id: 1,
+      languageCode: "en",
+      title: "A1"
     },
   ],
 }
@@ -39,16 +40,38 @@ const FAKE_STEPS_DATA: StepsPayload = {
   title: "A0",
   steps: [
     {
-      "id": 0,
-      "title": "1",
-      "slideshowId": 1
+      id: 0,
+      title: "1",
+      slideshowId: 1
     },
     {
-      "id": 1,
-      "title": "2",
-      "slideshowId": 3
+      id: 1,
+      title: "2",
+      slideshowId: 3
     },
   ],
+}
+
+// mocked slideshows API data
+const FAKE_SLIDESHOWS_DATA: SlideshowsPayload = {
+  id: 1,
+  slides: [
+      {
+          id: 0,
+          order: 1,
+          template: "LETTER_PRESENTATION"
+      },
+      {
+          id: 1,
+          order: 0,
+          template: "IMAGE_TITLE_SENTENCE"
+      },
+      {
+          id: 2,
+          order: 2,
+          template: "MULTIPLE_CHOICE_TEXT"
+      }
+  ]
 }
 
 @Injectable({
@@ -78,7 +101,17 @@ export class DataService {
     return Promise.resolve()
   }
 
+  public getLevelById(id: number): Level | undefined {
+    return this.levels.find(l => l.id === id)
+  }
+
   public getStepsForLevel(_languageCode: string, _levelId: number): Promise<Array<Step>> {
     return Promise.resolve(FAKE_STEPS_DATA.steps)
+  }
+
+  public getSlideshowsForStep(_languageCode: string, _stepId: number): Promise<Array<Slideshow>> {
+    const sortedSlideshows: Array<Slideshow> = FAKE_SLIDESHOWS_DATA.slides.sort((a,b) => a.order - b.order)
+
+    return Promise.resolve(sortedSlideshows)
   }
 }

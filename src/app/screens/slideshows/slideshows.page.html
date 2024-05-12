@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{language?.name}} {{level?.title}} {{step?.title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goPrev()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goNext()">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <swiper-container #swiper>
+    <swiper-slide *ngFor="let slideshow of slideshows">
+      <ion-icon [name]="slideshow.iconName"></ion-icon>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
