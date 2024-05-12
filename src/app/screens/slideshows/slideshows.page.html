@@ -13,9 +13,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <swiper-container #swiper>
-    <swiper-slide *ngFor="let slideshow of slideshows">
-      <ion-icon [name]="slideshow.iconName"></ion-icon>
+  <swiper-container #swiper [allowTouchMove]="false">
+    <swiper-slide *ngFor="let lesson of lessons">
+      <div class="content-container" [ngSwitch]="lesson.template">
+        <!-- Render for ImageLesson -->
+        <div *ngSwitchCase="'IMAGE_TITLE_SENTENCE'">
+          <div class="image-lesson-container">
+            <ion-img src="https://p-media-static-language.azureedge.net/images/37452-ynlojhbcbg/previews/screen-6576.jpg" />
+            <div>{{ $any(lesson).text }}</div>
+          </div>
+        </div>
+        <!-- Render for LetterLesson -->
+        <div *ngSwitchCase="'LETTER_PRESENTATION'">
+          <div class="letter">{{ $any(lesson).text }}</div>
+        </div>
+        <!-- Render for MultiChoiceLesson -->
+        <div *ngSwitchCase="'MULTIPLE_CHOICE_TEXT'">
+          <ion-radio-group>
+            <ion-item  lines="none" *ngFor="let option of $any(lesson).textOptions">
+              <ion-label  class="radio-label">{{option.text}}</ion-label>
+              <ion-radio mode="md" slot="start" [value]="option.id"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+      </div>
     </swiper-slide>
   </swiper-container>
 </ion-content>

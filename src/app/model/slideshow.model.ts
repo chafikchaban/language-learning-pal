@@ -7,7 +7,6 @@ export interface Slideshow {
   id: number;
   order: number;
   template: SlideshowTemplate;
-  iconName?: string
 }
 
 export type SlideshowTemplate =

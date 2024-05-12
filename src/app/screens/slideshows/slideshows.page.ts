@@ -6,11 +6,10 @@ import { DataService } from 'src/app/services/data/data.service';
 import { Language } from 'src/app/model/language.model';
 import { Level } from 'src/app/model/level.model';
 import { Step } from 'src/app/model/step.model';
-import { Slideshow, SlideshowTemplate } from 'src/app/model/slideshow.model';
 import { ActivatedRoute } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { imagesOutline, textOutline, listCircleOutline, arrowBack, arrowForward } from 'ionicons/icons';
-import Swiper from 'swiper';
+import { arrowBack, arrowForward } from 'ionicons/icons';
+import { Lesson } from 'src/app/model/lesson.model';
 
 @Component({
   selector: 'app-slideshows',
@@ -29,10 +28,10 @@ export class SlideshowsPage {
   public language?: Language;
   public level?: Level;
   public step?: Step;
-  public slideshows: Slideshow[] = []
+  public lessons: Array<Lesson> = []
 
   constructor(private route: ActivatedRoute) {
-    addIcons({ imagesOutline, textOutline, listCircleOutline, arrowBack, arrowForward })
+    addIcons({ arrowBack, arrowForward })
 
     const languageCode = this.route.snapshot.paramMap.get('languageCode') || '';
     const levelId = Number(this.route.snapshot.paramMap.get('levelId')) || 0;
@@ -43,32 +42,16 @@ export class SlideshowsPage {
 
     this.dataService.getSlideshowsForStep(languageCode, stepId)
       .then((slideshows) => {
-        this.slideshows = slideshows.map(item => ({
-          ...item,
-          iconName: this.getIconName(item.template)
-        }))
+        this.lessons = slideshows
       })
-
   }
-
 
   public goPrev = () => {
     this.swiperRef?.nativeElement.swiper.slidePrev()
-
   }
 
   public goNext = () => {
     this.swiperRef?.nativeElement.swiper.slideNext()
-  }
-
-  private getIconName = (template: SlideshowTemplate): string => {
-    switch (template) {
-      case 'IMAGE_TITLE_SENTENCE': return 'images-outline';
-      case 'LETTER_PRESENTATION': return 'text-outline';
-      case 'MULTIPLE_CHOICE_TEXT': return 'list-circle-outline';
-      default: return '';
-    }
-
   }
 
 }
