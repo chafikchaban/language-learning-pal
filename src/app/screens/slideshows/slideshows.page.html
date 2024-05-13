@@ -1,0 +1,47 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title color="primary">{{language?.name}} {{level?.title}} - Lesson {{stepId + 1}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <swiper-container #swiper>
+    <swiper-slide *ngFor="let lesson of lessons">
+      <div class="content-container" [ngSwitch]="lesson.template">
+        <!-- Render for ImageLesson -->
+        <div *ngSwitchCase="'IMAGE_TITLE_SENTENCE'">
+          <div class="image-lesson-container">
+            <ion-img
+              src="https://p-media-static-language.azureedge.net/images/37452-ynlojhbcbg/previews/screen-6576.jpg" />
+            <div>{{ $any(lesson).text }}</div>
+          </div>
+          <ion-button class="next-button" fill="solid" (click)="goNext()">
+            Next
+          </ion-button>
+        </div>
+        <!-- Render for LetterLesson -->
+        <div *ngSwitchCase="'LETTER_PRESENTATION'">
+          <div class="letter">{{ $any(lesson).text }}</div>
+          <ion-button class="next-button" fill="solid" (click)="goNext()">
+            Next
+          </ion-button>
+        </div>
+        <!-- Render for MultiChoiceLesson -->
+        <div class="multi-choice-container" *ngSwitchCase="'MULTIPLE_CHOICE_TEXT'">
+          <div class="instruction-text">Select the correct answer:</div>
+          <ion-radio-group (ionChange)="onMultiChoiceSelect($event)">
+            <ion-item class="ion-item" lines="none" *ngFor="let option of $any(lesson).textOptions">
+              <ion-label class="radio-label">{{option.text}}</ion-label>
+              <ion-radio mode="md" slot="start" [value]="option" [disabled]="correctAnswerSelected"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+          <div *ngIf="correctAnswerSelected === false" class="retry-text">hum .. let's try again!</div>
+          <div *ngIf="correctAnswerSelected" class="good-job-text">You got it! Good job!</div>
+          <ion-button *ngIf="correctAnswerSelected" class="next-button" fill="solid" (click)="goNext()">
+            Next
+          </ion-button>
+        </div>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
