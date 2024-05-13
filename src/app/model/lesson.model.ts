@@ -30,13 +30,13 @@ export interface LetterLesson {
 export interface MultiChoiceLesson {
   id: number;
   template: SlideshowTemplate;
-  textOptions: Array<
-    {
-      id: number;
-      expectedSelection: boolean;
-      text: string
-    }
-  >;
+  textOptions: Array<MultiChoiceOption>;
   audioUrl: string;
   requiresAnswer: boolean;
+}
+
+export interface MultiChoiceOption {
+  id: number;
+  expectedSelection: boolean;
+  text: string
 }

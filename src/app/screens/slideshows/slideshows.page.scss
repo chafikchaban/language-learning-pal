@@ -11,11 +11,6 @@ swiper-slide {
   align-items: center;
 }
 
-ion-icon {
-  font-size: large;
-  color: white
-}
-
 .content-container {
   width: 100%;
   height: 100%;
@@ -32,11 +27,11 @@ ion-icon {
   justify-content: space-between;
 
   ion-img {
-    flex: 0.8
+    flex: 0.5;
   }
 
   div {
-    flex: 0.2;
+    flex: 0.4;
     text-align: center;
     font-size: 2rem;
   }
@@ -46,16 +41,84 @@ ion-icon {
   font-size: 4rem;
 }
 
+.multi-choice-container {
+  width: 100%;
+}
+
+.instruction-text {
+  margin-left: 2rem;
+}
+
 ion-radio-group {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  gap: 4rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.ion-item {
+  overflow-y: visible
+}
+
+.radio-label {
+  font-size: 2rem;
+}
+
+ion-radio::part(container) {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
+
+ion-radio::part(mark) {
+  background: none;
+  transition: none;
+  transform: none;
+  border-radius: 0;
 }
 
 ion-radio {
   pointer-events: auto;
 }
 
-.radio-label {
-  font-size: 4rem;
+ion-radio.radio-checked::part(container) {
+  background: var(--ion-color-primary);
+  border-color: transparent;
+}
+
+ion-radio.radio-checked::part(mark) {
+  width: 6px;
+  height: 10px;
+  border-width: 0px 2px 2px 0px;
+  border-style: solid;
+  border-color: #fff;
+  transform: rotate(45deg);
+}
+
+.retry-text {
+  color: var(--ion-color-medium);
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.good-job-text {
+  color: var(--ion-color-success);
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.next-button {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  pointer-events: auto;
 }

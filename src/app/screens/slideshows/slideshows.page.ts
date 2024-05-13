@@ -1,14 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonCard, IonCardHeader, IonCardTitle, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonCard, IonCardHeader, IonCardTitle, IonButton } from '@ionic/angular/standalone';
 import { DataService } from 'src/app/services/data/data.service';
 import { Language } from 'src/app/model/language.model';
 import { Level } from 'src/app/model/level.model';
-import { Step } from 'src/app/model/step.model';
 import { ActivatedRoute } from '@angular/router';
-import { addIcons } from 'ionicons';
-import { arrowBack, arrowForward } from 'ionicons/icons';
 import { Lesson } from 'src/app/model/lesson.model';
 
 @Component({
@@ -16,7 +13,7 @@ import { Lesson } from 'src/app/model/lesson.model';
   templateUrl: './slideshows.page.html',
   styleUrls: ['./slideshows.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonCard, IonCardHeader, IonCardTitle, IonIcon],
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonCard, IonCardHeader, IonCardTitle, IonButton],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SlideshowsPage {
@@ -27,20 +24,20 @@ export class SlideshowsPage {
 
   public language?: Language;
   public level?: Level;
-  public step?: Step;
-  public lessons: Array<Lesson> = []
+  public stepId: number = 0;
+  public lessons: Array<Lesson> = [];
+  public correctAnswerSelected?: boolean;
 
-  constructor(private route: ActivatedRoute) {
-    addIcons({ arrowBack, arrowForward })
+  constructor(private activeRoute: ActivatedRoute, private router: LocationStrategy) {
 
-    const languageCode = this.route.snapshot.paramMap.get('languageCode') || '';
-    const levelId = Number(this.route.snapshot.paramMap.get('levelId')) || 0;
-    const stepId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+    const languageCode = this.activeRoute.snapshot.paramMap.get('languageCode') || '';
+    const levelId = Number(this.activeRoute.snapshot.paramMap.get('levelId')) || 0;
+    this.stepId = Number(this.activeRoute.snapshot.paramMap.get('id')) || 0;
 
     this.language = this.dataService.getLanguageById(languageCode)
     this.level = this.dataService.getLevelById(levelId)
 
-    this.dataService.getSlideshowsForStep(languageCode, stepId)
+    this.dataService.getSlideshowsForStep(languageCode, this.stepId)
       .then((slideshows) => {
         this.lessons = slideshows
       })
@@ -51,7 +48,19 @@ export class SlideshowsPage {
   }
 
   public goNext = () => {
+    this.correctAnswerSelected = undefined;
+
+    if (this.swiperRef?.nativeElement.swiper.activeIndex === this.lessons.length - 1) {
+      this.router.back()
+    }
     this.swiperRef?.nativeElement.swiper.slideNext()
+  }
+
+  public onMultiChoiceSelect = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    const { value } = input;
+    // @ts-ignore
+    this.correctAnswerSelected = value.expectedSelection;
   }
 
 }
