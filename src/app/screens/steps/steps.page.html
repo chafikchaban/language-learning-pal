@@ -1,22 +1,25 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>{{language?.name}} {{level?.title}}</ion-title>
+    <ion-title color="primary">{{language?.name}} {{level?.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{language?.name}} {{level?.title}}</ion-title>
+      <ion-title size="large" color="primary">{{language?.name}} {{level?.title}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <div id="container">
+    <div class="header-text">Choose lesson...</div>
     <ion-list>
-      <ion-card *ngFor="let step of steps" [routerLink]="'/step/' + language?.code + '/' + level?.id + '/' + step.id">
-        <ion-card-header>
-          <ion-card-title>{{step.title}}</ion-card-title>
-        </ion-card-header>
-      </ion-card>
+      <ion-button class="step-button" *ngFor="let step of steps" [disabled]="step.id !== 0"
+        [fill]="step.id === selectedStep ? 'solid' : 'outline' " (click)="select(step.id)">{{step.title}}</ion-button>
     </ion-list>
+    <ion-button class="next-button" fill="solid"
+      [routerLink]="'/step/' + language?.code + '/' + level?.id + '/' + selectedStep"
+      [disabled]="selectedStep === undefined">
+      Next
+    </ion-button>
   </div>
 </ion-content>
