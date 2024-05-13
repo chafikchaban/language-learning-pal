@@ -8,6 +8,10 @@ import { Level } from 'src/app/model/level.model';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from 'src/app/model/lesson.model';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { addIcons } from 'ionicons';
+import { volumeMediumOutline } from 'ionicons/icons'
+
+import { Howl } from 'howler';
 
 @Component({
   selector: 'app-slideshows',
@@ -21,6 +25,8 @@ export class SlideshowsPage implements OnDestroy {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
 
+  private sound?: Howl;
+
   private dataService = inject(DataService);
 
   public language?: Language;
@@ -30,7 +36,8 @@ export class SlideshowsPage implements OnDestroy {
   public correctAnswerSelected?: boolean;
 
   constructor(private activeRoute: ActivatedRoute, private router: LocationStrategy) {
-    ScreenOrientation.lock({ orientation: 'landscape' })
+    ScreenOrientation.lock({ orientation: 'landscape' });
+    addIcons({ volumeMediumOutline });
 
     const languageCode = this.activeRoute.snapshot.paramMap.get('languageCode') || '';
     const levelId = Number(this.activeRoute.snapshot.paramMap.get('levelId')) || 0;
@@ -46,25 +53,32 @@ export class SlideshowsPage implements OnDestroy {
   }
 
   ngOnDestroy() {
-    ScreenOrientation.lock({
-      orientation: 'portrait'
-    })
+    ScreenOrientation.lock({ orientation: 'portrait' });
+    this.sound?.unload();
   }
 
-  public goPrev = () => {
+  public playAudio = (source: string): void => {
+    this.sound = new Howl({ src: [source] });
+
+    this.sound.play();
+  }
+
+  public goPrev = (): void => {
     this.swiperRef?.nativeElement.swiper.slidePrev()
   }
 
-  public goNext = () => {
+  public goNext = (): void => {
     this.correctAnswerSelected = undefined;
 
     if (this.swiperRef?.nativeElement.swiper.activeIndex === this.lessons.length - 1) {
-      this.router.back()
+      this.router.back();
+
+      return;
     }
-    this.swiperRef?.nativeElement.swiper.slideNext()
+    this.swiperRef?.nativeElement.swiper.slideNext();
   }
 
-  public onMultiChoiceSelect = (event: Event) => {
+  public onMultiChoiceSelect = (event: Event): void => {
     const input = event.target as HTMLInputElement;
     const { value } = input;
     // @ts-ignore

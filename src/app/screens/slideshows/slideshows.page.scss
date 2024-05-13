@@ -122,3 +122,10 @@ ion-radio.radio-checked::part(mark) {
   right: 2rem;
   pointer-events: auto;
 }
+
+.volume-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  pointer-events: auto;
+}
