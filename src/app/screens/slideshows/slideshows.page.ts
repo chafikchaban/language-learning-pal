@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import { CommonModule, LocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonCard, IonCardHeader, IonCardTitle, IonButton } from '@ionic/angular/standalone';
@@ -7,6 +7,7 @@ import { Language } from 'src/app/model/language.model';
 import { Level } from 'src/app/model/level.model';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from 'src/app/model/lesson.model';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-slideshows',
@@ -16,7 +17,7 @@ import { Lesson } from 'src/app/model/lesson.model';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonCard, IonCardHeader, IonCardTitle, IonButton],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SlideshowsPage {
+export class SlideshowsPage implements OnDestroy {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
 
@@ -29,6 +30,7 @@ export class SlideshowsPage {
   public correctAnswerSelected?: boolean;
 
   constructor(private activeRoute: ActivatedRoute, private router: LocationStrategy) {
+    ScreenOrientation.lock({ orientation: 'landscape' })
 
     const languageCode = this.activeRoute.snapshot.paramMap.get('languageCode') || '';
     const levelId = Number(this.activeRoute.snapshot.paramMap.get('levelId')) || 0;
@@ -41,6 +43,12 @@ export class SlideshowsPage {
       .then((slideshows) => {
         this.lessons = slideshows
       })
+  }
+
+  ngOnDestroy() {
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    })
   }
 
   public goPrev = () => {
