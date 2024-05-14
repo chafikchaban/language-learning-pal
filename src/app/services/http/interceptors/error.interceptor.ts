@@ -21,7 +21,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      console.warn('failed');
+      console.error('failed', error);
 
       alertCtrl.create({
         header: 'Something went wrong',
@@ -35,7 +35,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
     }),
     finalize(() => {
       loadingCtrl.getTop().then(hasLoading => {
-        if (hasLoading) {
+        if (!!hasLoading) {
           loadingCtrl.dismiss()
         }
       })

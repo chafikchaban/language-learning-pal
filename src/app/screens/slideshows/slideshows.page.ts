@@ -11,7 +11,7 @@ import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { addIcons } from 'ionicons';
 import { volumeMediumOutline } from 'ionicons/icons'
 
-import { Howl } from 'howler';
+import { FileSystemService } from 'src/app/services/file-system/file-system.service';
 
 @Component({
   selector: 'app-slideshows',
@@ -25,7 +25,6 @@ export class SlideshowsPage implements OnDestroy {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
 
-  private sound?: Howl;
 
   private dataService = inject(DataService);
 
@@ -35,7 +34,7 @@ export class SlideshowsPage implements OnDestroy {
   public lessons: Array<Lesson> = [];
   public correctAnswerSelected?: boolean;
 
-  constructor(private activeRoute: ActivatedRoute, private router: LocationStrategy) {
+  constructor(private activeRoute: ActivatedRoute, private router: LocationStrategy, private fs: FileSystemService) {
     ScreenOrientation.lock({ orientation: 'landscape' });
     addIcons({ volumeMediumOutline });
 
@@ -47,19 +46,24 @@ export class SlideshowsPage implements OnDestroy {
     this.level = this.dataService.getLevelById(levelId)
 
     this.dataService.getSlideshowsForStep(this.stepId).subscribe(data => {
-      this.lessons = data
+      this.lessons = data;
     });
   }
 
   ngOnDestroy() {
     ScreenOrientation.lock({ orientation: 'portrait' });
-    this.sound?.unload();
   }
 
-  public playAudio = (source: string): void => {
-    this.sound = new Howl({ src: [source] });
+  public playAudio = async (lessonId: number): Promise<void> => {
+    const selectedLesson = this.lessons.find(l => {
+      return l.id === lessonId
+    }) as Lesson
 
-    this.sound.play();
+    const base64Sound = await this.fs.readFile(selectedLesson.localAudioFileName as string);
+    const audioRef = new Audio(`data:audio/mp3;base64,${base64Sound}`)
+
+    audioRef.oncanplaythrough = () => audioRef.play();
+    audioRef.load();
   }
 
   public goPrev = (): void => {

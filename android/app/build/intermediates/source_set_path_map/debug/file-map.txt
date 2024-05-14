@@ -32,4 +32,5 @@ io.ionic.starter.app-packaged_res-30 C:\Users\chafi\Desktop\language-learning-pa
 io.ionic.starter.app-packaged_res-31 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\app\android\build\intermediates\packaged_res\debug
 io.ionic.starter.app-packaged_res-32 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\haptics\android\build\intermediates\packaged_res\debug
 io.ionic.starter.app-packaged_res-33 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\keyboard\android\build\intermediates\packaged_res\debug
-io.ionic.starter.app-packaged_res-34 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\status-bar\android\build\intermediates\packaged_res\debug
+io.ionic.starter.app-packaged_res-34 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\screen-orientation\android\build\intermediates\packaged_res\debug
+io.ionic.starter.app-packaged_res-35 C:\Users\chafi\Desktop\language-learning-pal\node_modules\@capacitor\status-bar\android\build\intermediates\packaged_res\debug

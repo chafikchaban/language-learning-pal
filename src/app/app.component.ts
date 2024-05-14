@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { register } from 'swiper/element/bundle'
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { CachingService } from './services/caching/caching.service';
 
 register();
 
@@ -13,7 +14,8 @@ register();
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private cache: CachingService) {
+    this.cache.init();
     ScreenOrientation.lock({ orientation: 'portrait' })
   }
 

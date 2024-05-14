@@ -8,7 +8,7 @@
   <swiper-container #swiper>
     <swiper-slide *ngFor="let lesson of lessons">
       <div class="content-container" [ngSwitch]="lesson.template">
-        <ion-button class="volume-button" (click)="playAudio(lesson.audioUrl)" fill="clear"  size="large">
+        <ion-button class="volume-button" (click)="playAudio(lesson.id)" fill="clear"  size="large">
           <ion-icon slot="icon-only" name="volume-medium-outline"></ion-icon>
         </ion-button>
         <!-- Render for ImageLesson -->

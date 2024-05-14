@@ -1,4 +1,4 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -8,6 +8,9 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ErrorInterceptor } from './app/services/http/interceptors/error.interceptor';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
+import * as cordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 if (environment.production) {
   enableProdMode();
@@ -19,5 +22,9 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([ErrorInterceptor])),
+    importProvidersFrom( IonicStorageModule.forRoot({
+        name: '__mydb',
+        driverOrder: [cordovaSQLiteDriver._driver, Drivers.IndexedDB]
+      }))
   ],
 });

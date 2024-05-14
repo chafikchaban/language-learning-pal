@@ -15,6 +15,7 @@ export interface ImageLesson {
   backgroundColor: string;
   isAnimated: false;
   requiresAnswer: false;
+  localAudioFileName?: string;
 }
 
 export interface LetterLesson {
@@ -24,7 +25,8 @@ export interface LetterLesson {
   isAnimated: true;
   audioUrl: string;
   backgroundColor: string;
-  requiresAnswer: false
+  requiresAnswer: false;
+  localAudioFileName?: string;
 }
 
 export interface MultiChoiceLesson {
@@ -33,6 +35,7 @@ export interface MultiChoiceLesson {
   textOptions: Array<MultiChoiceOption>;
   audioUrl: string;
   requiresAnswer: boolean;
+  localAudioFileName?: string;
 }
 
 export interface MultiChoiceOption {
