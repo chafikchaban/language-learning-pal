@@ -3,6 +3,6 @@
 	"appName": "language-learning-pal",
 	"webDir": "www",
 	"server": {
-		"url": "http://192.168.0.78:8100"
+		"url": "http://192.168.56.1:8100"
 	}
 }
