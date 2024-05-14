@@ -46,10 +46,9 @@ export class SlideshowsPage implements OnDestroy {
     this.language = this.dataService.getLanguageById(languageCode)
     this.level = this.dataService.getLevelById(levelId)
 
-    this.dataService.getSlideshowsForStep(languageCode, this.stepId)
-      .then((slideshows) => {
-        this.lessons = slideshows
-      })
+    this.dataService.getSlideshowsForStep(this.stepId).subscribe(data => {
+      this.lessons = data
+    });
   }
 
   ngOnDestroy() {

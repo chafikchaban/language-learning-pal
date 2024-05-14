@@ -26,10 +26,10 @@ export class LevelsPage {
     const languageCode = this.route.snapshot.paramMap.get('languageCode') || '';
 
     this.language = this.dataService.getLanguageById(languageCode)
-    this.dataService.getLevels()
-      .then(() => {
-        this.levels = this.dataService.levels
-      })
+
+    this.dataService.getLevels().subscribe(data => {
+      this.levels = data.levels
+    });
   }
 
   public select = (id: number): void => {

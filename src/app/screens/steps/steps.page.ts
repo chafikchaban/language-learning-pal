@@ -18,7 +18,7 @@ import { Level } from 'src/app/model/level.model';
 export class StepsPage {
   private dataService = inject(DataService);
 
-  public selectedStep?: number;
+  public selectedStep: number = -1;
 
   public language?: Language;
   public level?: Level;
@@ -31,10 +31,9 @@ export class StepsPage {
     this.language = this.dataService.getLanguageById(languageCode)
     this.level = this.dataService.getLevelById(levelId)
 
-    this.dataService.getStepsForLevel(languageCode, levelId)
-      .then((steps) => {
-        this.steps = steps
-      })
+    this.dataService.getStepsForLevel(levelId).subscribe(data => {
+      this.steps = data.steps
+    });
   }
 
   public select = (id: number): void => {
