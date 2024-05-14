@@ -7,6 +7,7 @@ import { SlideshowsPayload } from 'src/app/model/slideshow.model';
 import { StepsPayload } from 'src/app/model/step.model';
 import { HttpService } from '../http/http.service';
 import { CachingService } from '../caching/caching.service';
+import { FileSystemService } from '../file-system/file-system.service';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class DataService {
   public languages: Language[] = [];
   public levels: Level[] = [];
 
-  constructor() { }
+  constructor(private fileSystem: FileSystemService) { }
 
   public getLanguages(): Observable<LanguagesPayload> {
     return this.getData('languages')
@@ -59,7 +60,25 @@ export class DataService {
   }
 
   public getLessonById(id: number): Observable<Lesson> {
-    return this.getData(`slides/${id}`)
+    const url: string = `slides/${id}`;
+
+    return this.getData(url).pipe(
+      tap(async res => {
+        await this.fileSystem.downloadFile(res.audioUrl)
+          .then((localFileName) => {
+            if (localFileName) {
+              const updatedObject = {
+                ...res,
+                localAudioFileName: localFileName
+              }
+              this.cache.removeRequestCache(url)
+                .then(() => {
+                  this.cache.cacheRequest(url, updatedObject);
+                })
+            }
+          })
+      })
+    )
   }
 
   private getData(url: string): Observable<any> {

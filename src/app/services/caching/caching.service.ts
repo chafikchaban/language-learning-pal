@@ -22,6 +22,12 @@ export class CachingService {
     return this.storage.set(url, { data })
   }
 
+  public removeRequestCache(url: string) {
+    url = `${CACHE_KEY}${url}`;
+
+    return this.storage.remove(url)
+  }
+
   public async getCachedRequest(url: string) {
     url = `${CACHE_KEY}${url}`;
 
