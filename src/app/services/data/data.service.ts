@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, forkJoin, mergeMap, switchMap } from 'rxjs';
+import { Observable, delay, forkJoin, from, mergeMap, of, switchMap, tap } from 'rxjs';
 import { Language, LanguagesPayload } from 'src/app/model/language.model';
 import { Lesson } from 'src/app/model/lesson.model';
 import { Level, LevelsPayload } from 'src/app/model/level.model';
 import { SlideshowsPayload } from 'src/app/model/slideshow.model';
 import { StepsPayload } from 'src/app/model/step.model';
 import { HttpService } from '../http/http.service';
+import { CachingService } from '../caching/caching.service';
 
 
 @Injectable({
@@ -13,6 +14,7 @@ import { HttpService } from '../http/http.service';
 })
 export class DataService {
   private http = inject(HttpService);
+  private cache = inject(CachingService);
 
   public languages: Language[] = [];
   public levels: Level[] = [];
@@ -20,7 +22,7 @@ export class DataService {
   constructor() { }
 
   public getLanguages(): Observable<LanguagesPayload> {
-    return this.http.get('languages')
+    return this.getData('languages')
   }
 
   public getLanguageById(languageCode: string): Language | undefined {
@@ -29,7 +31,7 @@ export class DataService {
   }
 
   public getLevels(): Observable<LevelsPayload> {
-    return this.http.get('levels');
+    return this.getData('levels');
   }
 
   public getLevelById(id: number): Level | undefined {
@@ -37,12 +39,12 @@ export class DataService {
   }
 
   public getStepsForLevel(levelId: number): Observable<StepsPayload> {
-    return this.http.get(`levels/${levelId}`)
+    return this.getData(`levels/${levelId}`)
   }
 
   public getSlideshowsForStep(stepId: number): Observable<Array<Lesson>> {
 
-    return this.http.get(`slideshows/${stepId}`)
+    return this.getData(`slideshows/${stepId}`)
       .pipe(
         mergeMap((result: SlideshowsPayload) => {
           const secondRequests: Observable<any>[] = [];
@@ -57,6 +59,27 @@ export class DataService {
   }
 
   public getLessonById(id: number): Observable<Lesson> {
-    return this.http.get(`slides/${id}`)
+    return this.getData(`slides/${id}`)
+  }
+
+  private getData(url: string): Observable<any> {
+    const storedValue = from(this.cache.getCachedRequest(url));
+    return storedValue.pipe(
+      switchMap(result => {
+        if (!result) {
+          return this.callAndCache(url);
+        } else {
+          return of(result)
+        }
+      })
+    )
+  }
+
+  private callAndCache(url: string): Observable<any> {
+    return this.http.get(url).pipe(
+      tap(res => {
+        this.cache.cacheRequest(url, res)
+      })
+    )
   }
 }
