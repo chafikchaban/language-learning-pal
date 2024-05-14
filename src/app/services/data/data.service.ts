@@ -64,6 +64,11 @@ export class DataService {
 
     return this.getData(url).pipe(
       tap(async res => {
+
+        if (res.localAudioFileName) {
+          return;
+        }
+
         await this.fileSystem.downloadFile(res.audioUrl)
           .then((localFileName) => {
             if (localFileName) {
