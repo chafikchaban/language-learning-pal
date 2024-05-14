@@ -14,10 +14,10 @@
     <div class="header-text">Choose lesson...</div>
     <ion-list>
       <ion-button class="step-button" *ngFor="let step of steps" [disabled]="step.id !== 0"
-        [fill]="step.id === selectedStep ? 'solid' : 'outline' " (click)="select(step.id)">{{step.title}}</ion-button>
+        [fill]="step.slideshowId === selectedStep ? 'solid' : 'outline' " (click)="select(step.slideshowId)">{{step.title}}</ion-button>
     </ion-list>
     <ion-button class="next-button" fill="solid"
-      [routerLink]="'/step/' + language?.code + '/' + level?.id + '/' + selectedStep"
+      [routerLink]="'/step/' + language?.code + '/' + level?.id + '/' + (selectedStep)"
       [disabled]="selectedStep === undefined">
       Next
     </ion-button>

@@ -21,10 +21,9 @@ export class HomePage {
   public languages: Language[] = []
 
   constructor() {
-    this.dataService.getLanguages()
-      .then(() => {
-        this.languages = this.dataService.languages
-      })
+    this.dataService.getLanguages().subscribe(data => {
+      this.languages = data.languages
+    });
   }
 
   public select = (languageCode: string): void => {
