@@ -24,7 +24,7 @@
         </div>
         <!-- Render for LetterLesson -->
         <div *ngSwitchCase="'LETTER_PRESENTATION'">
-          <div class="letter">{{ $any(lesson).text }}</div>
+          <div class="animated-letter">{{ $any(lesson).text }}</div>
           <ion-button class="next-button" fill="solid" (click)="goNext()">
             Next
           </ion-button>
