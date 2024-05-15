@@ -37,8 +37,18 @@ swiper-slide {
   }
 }
 
-.letter {
-  font-size: 4rem;
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+}
+
+.animated-letter {
+  font-size: 2rem;
+  animation: zoomInOut 2s infinite alternate;
 }
 
 .multi-choice-container {
