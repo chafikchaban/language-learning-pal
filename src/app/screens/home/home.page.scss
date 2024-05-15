@@ -1,14 +1,33 @@
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .header-text {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
-.language-button {
-  margin-right: 0.25rem;
+p {
+  text-align: center;
 }
 
-.next-button {
+.learn-button {
+  width: 90%;
   position: absolute;
   bottom: 2rem;
-  right: 2rem;
+}
+
+.profile-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
 }

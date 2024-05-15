@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary">
+      Profile
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" color="primary"> Profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <div *ngIf="user" class="user-info">
+      <ion-img class="profile-picture" [src]="user.image" alt="user-image" />
+      <div class="right-section">
+        <div class="user-name">{{user.name}}</div>
+        <div class="weekly-progress">
+          <p>Weekly progess</p>
+          <app-progress-bar [progress]="user.weeklyProgress"></app-progress-bar>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user" class="progress-section">
+      <div class="section-title">Ongoing Courses</div>
+      <div class="user-languages-container">
+        <div *ngFor="let language of user.languages" class="language-progress-card">
+          <p>{{language.name}}</p>
+          <div class="progress-container">
+            <app-progress-bar [progress]="language.progress"></app-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="friends" class="leaderboard-section">
+      <div class="section-title">Friends</div>
+      <div class="friends-list-container">
+        <ion-list class="friends-list">
+          <ion-item *ngFor="let friend of friends" lines="none">
+            <ion-avatar slot="start">
+              <ion-img class="friend-profile-picture" [src]="friend.image" alt="User 1" />
+            </ion-avatar>
+            <ion-label>
+              <h2>{{friend.name}}</h2>
+              <div class="weekly-progress">
+                <p>Weekly progess</p>
+                <app-progress-bar [progress]="friend.weeklyProgress"></app-progress-bar>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content>

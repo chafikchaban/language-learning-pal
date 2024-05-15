@@ -1,0 +1,105 @@
+#container {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-title {
+  color: var(--ion-color-medium)
+}
+
+.profile-picture {
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+  border-width: 2px;
+  border-radius: 5px;
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+
+
+.user-info {
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 5px;
+}
+
+.right-section {
+  width: 100%;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.weekly-progress {
+  width: 100%;
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.75rem;
+  }
+}
+
+ion-buttons {
+  position: absolute;
+  top: 0.4rem;
+}
+
+ion-back-button {
+  --color: var(--ion-color-primary) !important;
+}
+
+.progress-container {
+  width: 100%;
+}
+
+.language-progress-card {
+  width: 30%;
+  padding: 0.5rem;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.user-languages-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.friends-list-container {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.friends-list {
+  width: 100%;
+}
+
+.friend-profile-picture {
+  height: 2.5rem;
+  overflow: hidden;
+  object-fit: cover;
+  border-width: 2px;
+  border-radius: 5px;
+  border: 1px solid var(--ion-color-light-shade);
+}

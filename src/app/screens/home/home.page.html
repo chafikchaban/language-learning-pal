@@ -14,15 +14,11 @@
   </ion-header>
 
   <div id="container">
-    <div class="header-text">I want to learn...</div>
-    <ion-list>
-      <ion-button class="language-button" *ngFor="let language of languages" [disabled]="language.code !== 'en'"
-        [fill]="language.code === selectedLanguage ? 'solid' : 'outline' "
-        (click)="select(language.code)">{{language.name}}</ion-button>
-    </ion-list>
-    <ion-button class="next-button" fill="solid" [routerLink]="'/language/' + selectedLanguage"
-      [disabled]="!selectedLanguage">
-      Next
+    <h1 class="header-text">Welcome to your Language learning Pal</h1>
+    <p>The app that will take your language skills to the moon!</p>
+    <ion-button class="learn-button" fill="solid" [routerLink]="'/languages'" size="large">
+      Start Learning
     </ion-button>
+    <ion-img [routerLink]="'/profile'" class="profile-button" src="assets/images/user-unsplash.jpg" alt="user-image" />
   </div>
 </ion-content>
