@@ -8,7 +8,79 @@ import { StepsPayload } from 'src/app/model/step.model';
 import { HttpService } from '../http/http.service';
 import { CachingService } from '../caching/caching.service';
 import { FileSystemService } from '../file-system/file-system.service';
+import { User } from 'src/app/model/user.model';
 
+const FAKE_USER: User = {
+  id: 0,
+  name: 'Daniel Burton',
+  image: 'assets/images/user-unsplash.jpg',
+  weeklyProgress: 50,
+  languages: [
+    {
+      name: 'English',
+      progress: 50,
+    },
+    {
+      name: 'French',
+      progress: 10,
+    },
+    {
+      name: 'German',
+      progress: 50,
+    }
+  ]
+}
+
+const FAKE_FRIENDS: Array<User> = [
+  {
+    id: 1,
+    name: 'Marko Holzman',
+    image: 'assets/images/friend-0-unsplash.jpg',
+    weeklyProgress: 50,
+    languages: [
+      {
+        name: 'English',
+        progress: 50,
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Jennie Nichols',
+    image: 'assets/images/friend-1-unsplash.jpg',
+    weeklyProgress: 50,
+    languages: [
+      {
+        name: 'English',
+        progress: 50,
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Lucas Houghton',
+    image: 'assets/images/friend-2-unsplash.jpg',
+    weeklyProgress: 50,
+    languages: [
+      {
+        name: 'English',
+        progress: 50,
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Brittney Bryner',
+    image: 'assets/images/friend-3-unsplash.jpg',
+    weeklyProgress: 50,
+    languages: [
+      {
+        name: 'English',
+        progress: 15,
+      }
+    ]
+  },
+]
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +93,14 @@ export class DataService {
   public levels: Level[] = [];
 
   constructor(private fileSystem: FileSystemService) { }
+
+  public getCurrentuser(): Observable<User> {
+    return of(FAKE_USER)
+  }
+
+  public getFriendsList(): Observable<Array<User>> {
+    return of(FAKE_FRIENDS);
+  }
 
   public getLanguages(): Observable<LanguagesPayload> {
     return this.getData('languages')
