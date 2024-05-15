@@ -14,11 +14,18 @@
   </ion-header>
 
   <div id="container">
+    <ion-img [routerLink]="'/profile'" class="profile-button" src="assets/images/user-unsplash.jpg" alt="user-image" />
     <h1 class="header-text">Welcome to your Language learning Pal</h1>
     <p>The app that will take your language skills to the moon!</p>
-    <ion-button class="learn-button" fill="solid" [routerLink]="'/languages'" size="large">
-      Start Learning
-    </ion-button>
-    <ion-img [routerLink]="'/profile'" class="profile-button" src="assets/images/user-unsplash.jpg" alt="user-image" />
+    <div class="bottom-section">
+      <div class="qr-container">
+        <p>Scan lesson QR code!</p>
+        <app-barcode-scanner *ngIf="true"></app-barcode-scanner>
+        <p>or</p>
+      </div>
+      <ion-button class="learn-button" fill="solid" [routerLink]="'/languages'" size="large">
+        Start Learning
+      </ion-button>
+    </div>
   </div>
 </ion-content>
