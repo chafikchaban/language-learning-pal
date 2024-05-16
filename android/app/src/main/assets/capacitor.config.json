@@ -1,5 +1,8 @@
 {
 	"appId": "io.ionic.starter",
-	"appName": "language-learning-pal",
-	"webDir": "www"
+	"appName": "Language Pal",
+	"webDir": "www",
+	"server": {
+		"url": "http://192.168.0.78:8100"
+	}
 }
