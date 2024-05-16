@@ -1,17 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory, DownloadFileResult, WriteFileResult } from '@capacitor/filesystem';
+import { Filesystem, Directory, WriteFileResult } from '@capacitor/filesystem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileSystemService {
 
-
   constructor(private http: HttpClient) { }
-
-
 
   // Fetch the MP3 file and convert it to Base64 encoding
   async fetchAndConvertToBase64(url: string): Promise<string> {
@@ -40,9 +37,6 @@ export class FileSystemService {
     }
   }
 
-
-
-
   public downloadFile = async (url: string): Promise<string | null> => {
     const permissionGranted: boolean = await this.requestPermissionsIfNecessary();
     if (!permissionGranted) {
@@ -65,7 +59,6 @@ export class FileSystemService {
       console.log(e);
       return null;
     })
-
   };
 
   public getFileName = (url: string) => {
@@ -75,9 +68,8 @@ export class FileSystemService {
     // Take the last part of the array
     const extractedPart = parts[parts.length - 2];
 
-    return extractedPart
+    return extractedPart;
   }
-
 
   public writeFile = async (path: string, data: any): Promise<WriteFileResult> => {
     return await Filesystem.writeFile({
@@ -87,7 +79,6 @@ export class FileSystemService {
     });
   };
 
-
   public readFile = async (path: string): Promise<string | Blob> => {
     const readFileResult = await Filesystem.readFile({
       path,
@@ -96,7 +87,6 @@ export class FileSystemService {
 
     return readFileResult.data
   };
-
 
   private checkPermissions = async (): Promise<boolean> => {
     const granted = await Filesystem.checkPermissions()
@@ -135,7 +125,6 @@ export class FileSystemService {
         console.error(e);
         return false;
       })
-
   }
 
 }

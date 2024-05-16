@@ -1,8 +1,7 @@
 {
   "name": "language-learning-pal",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Chafik Chaabane",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -52,7 +51,6 @@
     "@angular/language-service": "^17.0.2",
     "@capacitor/cli": "6.0.0",
     "@ionic/angular-toolkit": "^11.0.1",
-    "@types/howler": "^2.2.11",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
@@ -69,5 +67,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.2.2"
   },
-  "description": "An Ionic project"
+  "description": "A Language learning app."
 }

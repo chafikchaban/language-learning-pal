@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, delay, forkJoin, from, mergeMap, of, switchMap, tap } from 'rxjs';
+import { Observable, forkJoin, from, mergeMap, of, switchMap, tap } from 'rxjs';
 import { Language, LanguagesPayload } from 'src/app/model/language.model';
 import { Lesson } from 'src/app/model/lesson.model';
 import { Level, LevelsPayload } from 'src/app/model/level.model';
@@ -124,7 +124,6 @@ export class DataService {
   }
 
   public getSlideshowsForStep(stepId: number): Observable<Array<Lesson>> {
-
     return this.getData(`slideshows/${stepId}`)
       .pipe(
         mergeMap((result: SlideshowsPayload) => {
@@ -144,7 +143,6 @@ export class DataService {
 
     return this.getData(url).pipe(
       tap(async res => {
-
         if (res.localAudioFileName) {
           return;
         }
