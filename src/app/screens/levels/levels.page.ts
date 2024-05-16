@@ -6,13 +6,25 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButton } from 
 import { DataService } from 'src/app/services/data/data.service';
 import { Level } from 'src/app/model/level.model';
 import { Language } from 'src/app/model/language.model';
+import { BackButtonComponent } from 'src/app/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-levels',
   templateUrl: './levels.page.html',
   styleUrls: ['./levels.page.scss'],
   standalone: true,
-  imports: [RouterLink, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonButton]
+  imports: [
+    RouterLink,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonList,
+    IonButton,
+    BackButtonComponent
+  ]
 })
 export class LevelsPage {
   private dataService = inject(DataService);

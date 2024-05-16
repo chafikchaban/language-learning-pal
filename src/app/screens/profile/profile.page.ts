@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonBackButton, IonButtons, IonList, IonItem, IonAvatar, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg,IonList, IonItem, IonAvatar, IonLabel } from '@ionic/angular/standalone';
 import { ProgressBarComponent } from 'src/app/components/progress-bar/progress-bar.component';
 import { User } from 'src/app/model/user.model';
 import { DataService } from 'src/app/services/data/data.service';
+import { BackButtonComponent } from 'src/app/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +18,11 @@ import { DataService } from 'src/app/services/data/data.service';
     IonToolbar,
     CommonModule,
     IonImg,
-    IonButtons,
-    IonBackButton,
     IonList,
     IonItem,
     IonAvatar,
     IonLabel,
+    BackButtonComponent,
     ProgressBarComponent
   ]
 })
