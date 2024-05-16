@@ -5,13 +5,24 @@ import { Component, inject } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButton } from '@ionic/angular/standalone';
 import { DataService } from 'src/app/services/data/data.service';
 import { Language } from 'src/app/model/language.model';
+import { BackButtonComponent } from 'src/app/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.page.html',
   styleUrls: ['./languages.page.scss'],
   standalone: true,
-  imports: [CommonModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButton],
+  imports: [
+    CommonModule,
+    RouterLink,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonButton,
+    BackButtonComponent
+  ],
 })
 export class LanguagesPage {
 
