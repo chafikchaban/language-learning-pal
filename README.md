@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  Language learning pal
+<img  align="center" alt="logo" src="https://github.com/chafikchaban/language-learning-pal/assets/30408070/5adfda83-5317-4cc8-9e3d-de6d96e7eb1a" width="240px"/><br/>
 </h1>
 
 This project was mainly developed using these tools:
