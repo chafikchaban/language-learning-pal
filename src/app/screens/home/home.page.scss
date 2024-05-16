@@ -38,11 +38,20 @@ p {
 
 .profile-button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0rem;
+  right: 1.5rem;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 2px solid var(--ion-color-danger-tint);
   overflow: hidden;
   object-fit: cover;
+}
+
+.logo {
+  position: absolute;
+  top: 2rem;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
 }
